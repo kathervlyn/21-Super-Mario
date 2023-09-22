@@ -1,0 +1,33 @@
+.img {
+    height: 300px;
+    width: 200px;
+    margin: 30px;
+}
+
+.smallImg {
+    height: 200px;
+    width: 150px;
+    margin: 5px;
+}
+
+.flex {
+    display: flex;
+    align-items: flex-start;
+}
+
+.btn {
+    width: 70px;
+    margin-left: 50px;
+}
+
+.characterSelected {
+    border: 3px solid black;
+    width: 652px;
+    background-color: black;
+}
+
+.enemySelected{
+    border: 3px solid black;
+    width: 652px;
+    background-color: black;
+}

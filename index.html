@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Mario</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        //------------------------------------------------------Model----------------------------------------------------------------------------
+        let bowserHp = 300;
+        let charHp = 0;
+        let player = 'mario';
+        //------------------------------------------------------View-----------------------------------------------------------------------------
+
+        function updateView() {
+            document.getElementById('app').innerHTML = /*HTML*/`
+
+            <div class="characterSelected">
+                <div class="flex">Select character</div>
+                <img src="/Images/mario.png" class="smallImg" onclick="selectPlayer('mario')" />
+                <img src="/Images/luigi.png" class="smallImg" onclick="selectPlayer('luigi')" />
+                <img src="/Images/peach.png" class="smallImg" onclick="selectPlayer('peach')" />
+                <img src="/Images/yoshi.png" class="smallImg" onclick="selectPlayer('yoshi')" />
+            </div>
+
+            <div class="flex">
+                <img src="/Images/bowser.png" class="img" />
+                <div id="bowserHp">300 HP</div>
+                <button class="btn" id="bowser" onclick=attackOpponent(this)>Attack enemy!</button>
+                <img src="/Images/bwsmush.png" class="img" onclick="regenBowser()" />
+            </div>
+
+            <div class="flex">
+                <img id="selectedChar" src="/Images/mario.png" class="img" />
+                <div id="charHp">200 HP</div>
+                <button class="btn" id="char" onclick="attackOpponent(this)">Attack Bowser!</button>
+                <img src="/Images/toad.png" class="img" onclick="regenLife()" />
+            </div>
+            `;
+        }
+        updateView();
+
+        //----------------------------------------------------Controller-------------------------------------------------------------------------
+
+        function selectPlayer(playerName) {
+            document.getElementById('bowser').innerHTML = "Attack " + playerName;
+            document.getElementById('selectedChar').src = '/Images/' + playerName + '.png';
+            player = playerName;
+            regenLife();
+        }
+
+        function regenBowser() {
+            bowserHp = 300;
+            document.getElementById("bowserHp").innerHTML = bowserHp + ' HP'
+        }
+
+        function regenLife() {
+            if (player === 'mario') {
+                charHp = 200;
+            }
+            else if (player === 'luigi') {
+                charHp = 140;
+            }
+            else if (player === 'peach') {
+                charHp = 100;
+            }
+            else if (player === 'yoshi') {
+                charHp = 80;
+            }
+            else {
+                charHp = 140;
+            }
+            document.getElementById("charHp").innerHTML = charHp + ' HP'
+        }
+
+        function attackOpponent(element) {
+            if (element.id === 'char') {
+                charAttacks();
+            }
+            else {
+                bowserAttacks(player);
+            }
+        }
+
+        function charAttacks() {
+            if (bowserHp == 0) {
+                alert('Du vant');
+                return;
+            }
+            bowserHp -= 10;
+            document.getElementById("bowserHp").innerHTML = bowserHp + ' HP';
+        }
+
+        function bowserAttacks(playerName) {
+            if (charHp == 0) {
+                alert('Du Tapte');
+                return;
+            }
+            charHp -= 20;
+            document.getElementById("charHp").innerHTML = charHp + ' HP';
+        }
+    </script>
+</body>
+
+</html>
